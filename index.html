@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Follow Me 🌸 | Blush and Bloom</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+:root{
+  --cream:#f8f0e6; --beige:#ead8c4; --brown:#5b4032;
+  --dark:#30221d; --rose:#c98e83; --green:#78866b;
+  --white:#fffaf4;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--dark);font-family:"DM Sans",sans-serif;overflow-x:hidden}
+button{font:inherit}
+.screen{min-height:100vh;display:none;align-items:center;justify-content:center;padding:28px 18px;position:relative;overflow:hidden}
+.screen.active{display:flex;animation:fade .55s ease}
+.card{width:min(620px,100%);text-align:center;position:relative;z-index:2}
+.logo{font-family:"Playfair Display",serif;letter-spacing:3px;font-size:clamp(26px,7vw,44px);margin-bottom:8px}
+.small{font-size:12px;letter-spacing:3px;text-transform:uppercase;opacity:.65}
+h1{font-family:"Playfair Display",serif;font-size:clamp(38px,10vw,68px);line-height:1.02;margin:15px 0}
+h2{font-family:"Playfair Display",serif;font-size:clamp(30px,8vw,48px);margin:10px 0}
+p{line-height:1.7;font-size:16px}
+.btn{border:0;border-radius:999px;padding:15px 26px;background:var(--brown);color:#fff;cursor:pointer;transition:.25s;box-shadow:0 10px 24px #5b403233;font-weight:700}
+.btn:hover{transform:translateY(-3px);box-shadow:0 14px 28px #5b403244}
+.btn.light{background:var(--white);color:var(--brown);border:1px solid #5b403233}
+.progress{position:fixed;top:14px;left:50%;transform:translateX(-50%);width:min(420px,82%);height:5px;background:#5b403220;border-radius:20px;z-index:20}
+.progress span{display:block;height:100%;width:0;background:var(--brown);border-radius:20px;transition:.5s}
+.petal{position:absolute;width:18px;height:25px;background:#d9aaa0aa;border-radius:80% 20% 80% 20%;animation:float 7s linear infinite}
+.p1{left:8%;top:15%}.p2{right:12%;top:30%;animation-delay:2s}.p3{left:22%;bottom:14%;animation-delay:4s}.p4{right:25%;bottom:20%;animation-delay:1s}
+.flower-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px auto;max-width:430px}
+.flower{background:#fffaf4;border:1px solid #5b403220;border-radius:22px;padding:22px;font-size:42px;cursor:pointer;transition:.2s}
+.flower:hover{transform:scale(1.05) rotate(-2deg)}
+.options{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:25px auto;max-width:500px}
+.option{border:1px solid #5b403230;background:#fffaf4;padding:18px;border-radius:18px;cursor:pointer;color:var(--dark);font-weight:700;transition:.2s}
+.option:hover{transform:translateY(-3px);border-color:var(--brown)}
+.result{min-height:28px;font-weight:700;margin:12px}
+.mystery{width:180px;height:150px;margin:30px auto;position:relative;cursor:pointer}
+.box{position:absolute;bottom:0;left:20px;width:140px;height:105px;background:var(--rose);border-radius:8px;box-shadow:0 15px 30px #5b403233}
+.lid{position:absolute;top:22px;left:12px;width:156px;height:35px;background:#b97b71;border-radius:7px;transition:.6s}
+.ribbon{position:absolute;left:76px;top:0;width:28px;height:105px;background:#ead8c4}
+.open .lid{transform:translateY(-75px) rotate(-8deg)}
+.reveal{display:none;animation:pop .5s ease}
+.open + .reveal{display:block}
+.mood-icon{font-size:55px}
+.brandmark{font-family:"Playfair Display",serif;font-size:clamp(35px,9vw,62px);letter-spacing:5px}
+.product-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:25px 0}
+.product{background:#fffaf4;border-radius:18px;padding:16px 8px;border:1px solid #5b403220}
+.product b{display:block;margin-top:8px;font-size:13px}
+.ig{background:#7d5b52}
+.note{background:#fffaf4;border-radius:22px;padding:18px;margin:22px auto;max-width:500px;border:1px solid #5b403220}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes float{0%{transform:translateY(0) rotate(0)}50%{transform:translateY(-70px) rotate(160deg)}100%{transform:translateY(0) rotate(360deg)}}
+@keyframes pop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+@media(max-width:480px){.options{grid-template-columns:1fr}.product-row{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<div class="progress"><span id="bar"></span></div>
+
+<section class="screen active" id="s1">
+  <div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div>
+  <div class="card">
+    <div class="small">Blush and Bloom presents</div>
+    <div class="logo">A little secret...</div>
+    <h1>Follow Me 🌸</h1>
+    <p>Something cute is hiding here.<br>But you'll have to play along to find it.</p>
+    <button class="btn" onclick="go(2)">ENTER THE GARDEN →</button>
+  </div>
+</section>
+
+<section class="screen" id="s2">
+  <div class="card">
+    <div class="small">Level 01</div><h2>Find the hidden bloom</h2>
+    <p>One of these flowers knows the secret. 👀</p>
+    <div class="flower-grid">
+      <button class="flower" onclick="wrong(this)">🌷</button>
+      <button class="flower" onclick="wrong(this)">🌻</button>
+      <button class="flower" onclick="rightFlower()">🌹</button>
+      <button class="flower" onclick="wrong(this)">🌼</button>
+      <button class="flower" onclick="wrong(this)">🌸</button>
+      <button class="flower" onclick="wrong(this)">🌺</button>
+    </div>
+    <div class="result" id="flowerResult"></div>
+  </div>
+</section>
+
+<section class="screen" id="s3">
+  <div class="card">
+    <div class="small">Level 02</div><h2>What am I?</h2>
+    <p>Can you guess what this handmade mystery is?</p>
+    <div style="font-size:100px;margin:20px">🧶🌸</div>
+    <div class="options">
+      <button class="option" onclick="guess(false)">A normal flower</button>
+      <button class="option" onclick="guess(true)">A crochet flower</button>
+      <button class="option" onclick="guess(false)">A paper flower</button>
+      <button class="option" onclick="guess(false)">A sticker</button>
+    </div>
+    <div class="result" id="guessResult"></div>
+  </div>
+</section>
+
+<section class="screen" id="s4">
+  <div class="card">
+    <div class="small">Level 03</div><h2>A mystery box 🎁</h2>
+    <p>Something handmade is waiting inside.</p>
+    <div class="mystery" id="box" onclick="openBox()">
+      <div class="box"></div><div class="ribbon"></div><div class="lid"></div>
+    </div>
+    <div class="reveal">
+      <h3>✨ You unlocked it!</h3>
+      <p>A little handmade happiness.</p>
+      <button class="btn" onclick="go(5)">ONE MORE →</button>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="s5">
+  <div class="card">
+    <div class="small">Level 04</div><h2>Pick your mood</h2>
+    <p>What would you choose today?</p>
+    <div class="options">
+      <button class="option" onclick="mood('🌷','Something cute')">🌷 Something Cute</button>
+      <button class="option" onclick="mood('🌻','Something pretty')">🌻 Something Pretty</button>
+      <button class="option" onclick="mood('🤎','Something personal')">🤎 Something Personal</button>
+      <button class="option" onclick="mood('✨','Surprise me')">✨ Surprise Me</button>
+    </div>
+    <div class="result" id="moodResult"></div>
+  </div>
+</section>
+
+<section class="screen" id="s6">
+  <div class="card">
+    <div class="small">Final level</div>
+    <div class="brandmark">BLUSH<br>&amp; BLOOM</div>
+    <p>Handmade little things, made to make someone smile. 🌸</p>
+    <div class="product-row">
+      <div class="product">🌹<b>Crochet Roses</b></div>
+      <div class="product">🌻<b>Sunflowers</b></div>
+      <div class="product">🌷<b>Tulips</b></div>
+      <div class="product">🎀<b>Keychains</b></div>
+    </div>
+    <div class="note">
+      <b>You made it this far…</b>
+      <p>Ready to see more handmade blooms?</p>
+      <button class="btn ig" onclick="openInstagram()">FOLLOW THE BLOOM →</button>
+    </div>
+    <p class="small">Your next stop is Instagram ✨</p>
+  </div>
+</section>
+
+<script>
+const IG="https://www.instagram.com/blushandbloomcreations.co/";
+let current=1;
+function updateBar(){document.getElementById("bar").style.width=((current-1)/5*100)+"%"}
+function go(n){
+  document.getElementById("s"+current).classList.remove("active");
+  current=n;
+  document.getElementById("s"+current).classList.add("active");
+  updateBar();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function wrong(el){
+  document.getElementById("flowerResult").textContent="Not this one… keep looking 👀";
+  el.style.transform="rotate(4deg) scale(.95)";
+}
+function rightFlower(){
+  document.getElementById("flowerResult").textContent="You found it! 🌹";
+  setTimeout(()=>go(3),650);
+}
+function guess(ok){
+  document.getElementById("guessResult").textContent=ok?"Okay… you know your crochet 👀":"Hmm… look a little closer!";
+  if(ok)setTimeout(()=>go(4),700);
+}
+function openBox(){
+  const b=document.getElementById("box");
+  b.classList.add("open");
+}
+function mood(icon,text){
+  document.getElementById("moodResult").innerHTML='<span class="mood-icon">'+icon+'</span><br>'+text+' — I think we found your vibe. 💕<br><br><button class="btn" onclick="go(6)">REVEAL THE SECRET →</button>';
+}
+function openInstagram(){
+  const message=encodeURIComponent("Hi Blush and Bloom! 🌸 I completed the Follow Me game!");
+  window.location.href=IG+"?game=follow-me";
+  // The message is also prepared below as a fallback for copy/paste.
+  setTimeout(()=>navigator.clipboard?.writeText("Hi Blush and Bloom! 🌸 I completed the Follow Me game!"),300);
+}
+updateBar();
+</script>
+</body>
+</html>
